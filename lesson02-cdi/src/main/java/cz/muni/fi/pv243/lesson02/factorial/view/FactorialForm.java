@@ -2,18 +2,28 @@ package cz.muni.fi.pv243.lesson02.factorial.view;
 
 import java.math.BigInteger;
 
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import cz.muni.fi.pv243.lesson02.factorial.Factorial;
+
 /**
  * Backing bean for the factorial form (factorial.xhtml)
  */
 
-// TODO: turn this class into a named bean with name "factorial"
+@Named("factorial")
+@RequestScoped
 public class FactorialForm {
 
     private Long input;
     private BigInteger result;
 
+    @Inject
+    private Factorial factorial;
+
     public void compute() {
-        // TODO implement using Factorial bean
+        this.result = factorial.compute(input);
     }
 
     public void reset() {
