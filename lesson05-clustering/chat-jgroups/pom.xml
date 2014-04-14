@@ -62,7 +62,7 @@
     </dependencies>
 
     <repositories>
-        <!-- The JBoss Community public repository is a composite repository 
+        <!-- The JBoss Community public repository is a composite repository
             of several major repositories -->
         <!-- see http://community.jboss.org/wiki/MavenGettingStarted-Users -->
         <repository>
