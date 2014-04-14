@@ -23,16 +23,35 @@ public class HttpSessionServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession(true);
 
-        // TODO: Implement creating new session, storing SerialBean
+        if (session.isNew()) {
+            log.log(Level.INFO, "New session created: {0}", session.getId());
+            session.setAttribute(KEY, new SerialBean());
+        }
 
-        // TODO: output the serial bean as plain text in response.
+        SerialBean bean = (SerialBean) session.getAttribute(KEY);
 
-        // TODO: Optionally implement readonly scenario (only for the bored).
+        resp.setContentType("text/plain");
+
+        // Readonly?
+        if (req.getParameter(READONLY) != null) {
+            resp.getWriter().print(bean.getSerial());
+            return;
+        }
+
+        int serial = bean.getSerial();
+        bean.setSerial(serial + 1);
+
+        // Now store bean in the session
+        session.setAttribute(KEY, bean);
+
+        resp.getWriter().print(serial);
 
         // Invalidate?
         if (req.getParameter(HttpSessionServlet.INVALIDATE) != null) {
-            // TODO: Invalidate the session here.
+            log.log(Level.INFO, "Invalidating: {0}", session.getId());
+            session.invalidate();
         }
     }
 
