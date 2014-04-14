@@ -1,6 +1,14 @@
 *.class
 
-# Package Files #
+# Package Files
 *.jar
 *.war
 *.ear
+
+# Maven
+target/
+
+# Idea project files
+.idea/
+*.iml
+*.ipr
