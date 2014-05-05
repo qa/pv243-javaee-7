@@ -41,7 +41,7 @@ import ejb.security.TestBean;
  * A simple servlet that just writes back a string
  *
  */
-@ServletSecurity(@HttpConstraint(rolesAllowed = { "gooduser" }))
+@ServletSecurity(@HttpConstraint(rolesAllowed = { "gooduser","superuser" }))
 @DeclareRoles("gooduser")
 @WebServlet(name = "SecuredServlet", urlPatterns = { "/secured/" }, loadOnStartup = 1)
 public class SecuredServlet extends HttpServlet {
