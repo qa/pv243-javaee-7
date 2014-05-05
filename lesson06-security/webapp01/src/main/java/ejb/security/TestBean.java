@@ -1,10 +1,13 @@
 package ejb.security;
 
 import javax.ejb.LocalBean;
+import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
+import javax.annotation.Resource;
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
+
 import org.jboss.ejb3.annotation.SecurityDomain;
 
 /**
@@ -15,7 +18,10 @@ import org.jboss.ejb3.annotation.SecurityDomain;
 @DeclareRoles({"superuser","gooduser"})
 @SecurityDomain("test")
 public class TestBean {
-
+    
+    @Resource
+    SessionContext ctx;
+    
     /**
      * Default constructor. 
      */
@@ -37,4 +43,15 @@ public class TestBean {
 		return whatToEcho;
 	} 
     
+    @PermitAll
+    public String sessionContextInfo() {
+        return "-----------------------------------------------------------------\n"
+                + ctx.getCallerPrincipal().toString()
+                + "\n"
+                + "caller is in gooduser role = "
+                + ctx.isCallerInRole("gooduser")
+                + "\n"
+                + "-----------------------------------------------------------------\n";
+    }
+
 }
