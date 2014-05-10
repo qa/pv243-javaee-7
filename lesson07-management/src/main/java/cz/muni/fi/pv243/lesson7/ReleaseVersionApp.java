@@ -40,12 +40,14 @@ public class ReleaseVersionApp {
 
         ModelNode op = new ModelNode();
 
-        // set operation
+        op.get("operation").set("read-attribute");
+
+        op.get("name").set("release-version");
 
         ModelNode returnVal = client.execute(op);
 
-
-        // display results
+        System.out.println(returnVal.get("result").toString());
+        
 
         client.close();
 
